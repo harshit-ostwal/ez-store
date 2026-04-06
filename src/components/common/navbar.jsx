@@ -110,7 +110,7 @@ function Navbar() {
           <Search />
         </Button>
         <Button
-          onClick={() => navigate("/whishlist")}
+          onClick={() => navigate("/my/whishlist")}
           size="icon"
           variant="none"
           className={"relative"}
@@ -185,13 +185,13 @@ function Navbar() {
             <DropdownMenuGroup>
               <DropdownMenuLabel>Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/my/profile")}>
                 <User2 /> Profile
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/my/orders")}>
                 <Box /> Orders
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/my/addresses")}>
                 <MapPinCheckInside /> Addresses
               </DropdownMenuItem>
               <DropdownMenuSeparator />

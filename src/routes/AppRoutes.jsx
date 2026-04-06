@@ -1,4 +1,9 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import {
+  createBrowserRouter,
+  Navigate,
+  Outlet,
+  RouterProvider,
+} from "react-router";
 import SignIn from "../pages/auth/sign-in.jsx";
 import SignUp from "../pages/auth/sign-up.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
@@ -17,6 +22,7 @@ import {
 } from "@/api/products.js";
 import Loading from "@/components/common/Loading.jsx";
 import Whishlist from "@/pages/whislist.jsx";
+import Profile from "@/pages/profile.jsx";
 
 function AppRoutes() {
   const router = createBrowserRouter([
@@ -41,7 +47,7 @@ function AppRoutes() {
           element: <App />,
         },
         {
-          path: "/products",
+          path: "products",
           loader: async () => {
             const allProducts = await getAllProducts();
             return { allProducts };
@@ -50,7 +56,7 @@ function AppRoutes() {
           element: <Products />,
         },
         {
-          path: "/products/:id",
+          path: "products/:id",
           loader: async ({ params }) => {
             const [limitedProducts, product] = await Promise.all([
               getLimitedProducts({ skip: params.id }),
@@ -62,23 +68,33 @@ function AppRoutes() {
           element: <ProductDetails />,
         },
         {
-          path: "/whishlist",
+          path: "my",
           hydrateFallbackElement: <Loading />,
-          element: <Whishlist />,
+          children: [
+            {
+              path: "whishlist",
+              hydrateFallbackElement: <Loading />,
+              element: <Whishlist />,
+            },
+            {
+              path: "profile",
+              hydrateFallbackElement: <Loading />,
+              element: <Profile />,
+            },
+          ],
         },
         {
-          path: "/about",
+          path: "about",
           element: <About />,
         },
         {
-          path: "/contact",
+          path: "contact",
           hydrateFallbackElement: <Loading />,
           element: <Contact />,
         },
         {
           path: "*",
-          hydrateFallbackElement: <Loading />,
-          element: <h1>404 Not Found</h1>,
+          element: <Navigate to="/" replace />,
         },
       ],
     },
