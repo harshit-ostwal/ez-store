@@ -108,7 +108,7 @@ function ProductDetails() {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="flex flex-col lg:flex-row gap-10">
-          <div className="basis-1/2 w-full flex flex-col gap-4">
+          <div className="basis-1/2 w-full lg:flex hidden flex-col gap-4">
             {images.map((image, idx) => (
               <ImageComp
                 key={idx}
@@ -119,6 +119,29 @@ function ProductDetails() {
                 }
               />
             ))}
+          </div>
+          <div className="basis-1/2 w-full lg:hidden flex flex-col gap-4">
+            <Carousel
+              plugins={[autoplayPlugin]}
+              opts={{
+                loop: true,
+                align: "start",
+              }}
+            >
+              <CarouselContent>
+                {images.map((image, idx) => (
+                  <CarouselItem key={idx} className={"w-full"}>
+                    <ImageComp
+                      src={image}
+                      alt={`Product Image ${idx + 1}`}
+                      className={
+                        "w-full aspect-5/4 object-contain bg-muted rounded-4xl"
+                      }
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
           <div
             className={cn(
