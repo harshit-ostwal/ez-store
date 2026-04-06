@@ -1,9 +1,4 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  Outlet,
-  RouterProvider,
-} from "react-router";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import SignIn from "../pages/auth/sign-in.jsx";
 import SignUp from "../pages/auth/sign-up.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
