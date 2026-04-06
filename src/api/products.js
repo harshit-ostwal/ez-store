@@ -2,7 +2,7 @@ import axiosInstance from "@/lib/axios";
 
 export const getAllProducts = async () => {
     try {
-        const res = await axiosInstance.get("/products?limit=500&skip=77");
+        const res = await axiosInstance.get("/products?limit=0&skip=77");
         return res.data.products;
     } catch (error) {
         throw new Error("Failed to fetch products", { cause: error });
@@ -58,7 +58,7 @@ export const searchProducts = async (query) => {
 export const getProductsCategories = async () => {
     try {
         const res = await axiosInstance.get("/products/categories");
-        return res.data;
+        return Array.isArray(res.data) ? res.data : [];
     } catch (error) {
         throw new Error("Failed to fetch product categories", { cause: error });
     }

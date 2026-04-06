@@ -9,7 +9,7 @@ const categoryMeta = Object.fromEntries(
     CategoriesData.map((c) => [c.slug, { icon: c.icon, color: c.color }])
 );
 
-function Categories({ categories }) {
+function Categories({ categories = [] }) {
     const autoplayPlugin = useMemo(
         () =>
             Autoplay({
