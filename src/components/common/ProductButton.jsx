@@ -4,7 +4,7 @@ import { Heading } from "../ui/Headings";
 
 function ProductButton({ productCart, increaseQuantity, decreaseQuantity }) {
     return (
-        <div className="flex items-center text-center gap-8">
+        <div className="flex items-center text-center gap-4 sm:gap-8">
             <Button
                 onClick={decreaseQuantity}
                 variant="outline"
