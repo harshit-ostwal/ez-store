@@ -39,15 +39,19 @@ function AppRoutes() {
                 getTrendingProducts({ limit: 10, skip: 125 }),
                 getTrendingProducts({ limit: 10, skip: 155 }),
               ]);
-            return {
-              categories,
-              trending,
-              newArrivals,
-              bestSellers,
-            };
+            return { categories, trending, newArrivals, bestSellers };
           },
           hydrateFallbackElement: <Loading />,
           element: <App />,
+        },
+        {
+          path: "categories",
+          loader: async () => {
+            const categories = await getProductsCategories();
+            return { categories };
+          },
+          hydrateFallbackElement: <Loading />,
+          element: <Categories />,
         },
         {
           path: "products",
@@ -59,27 +63,6 @@ function AppRoutes() {
           element: <Products />,
         },
         {
-          path: "products/:id",
-          loader: async ({ params }) => {
-            const [limitedProducts, product] = await Promise.all([
-              getLimitedProducts({ skip: params.id }),
-              getProductById(params.id),
-            ]);
-            return { limitedProducts, product };
-          },
-          hydrateFallbackElement: <Loading />,
-          element: <ProductDetails />,
-        },
-        {
-          path: "products/categories",
-          loader: async () => {
-            const categories = await getProductsCategories();
-            return { categories };
-          },
-          hydrateFallbackElement: <Loading />,
-          element: <Categories />,
-        },
-        {
           path: "products/category/:category",
           loader: async ({ params }) => {
             const allProducts = await getProductsByCategory(params.category);
@@ -87,6 +70,18 @@ function AppRoutes() {
           },
           hydrateFallbackElement: <Loading />,
           element: <Category />,
+        },
+        {
+          path: "products/:id",
+          loader: async ({ params }) => {
+            const [limitedProducts, product] = await Promise.all([
+              getLimitedProducts({ skip: Number(params.id) }),
+              getProductById(params.id),
+            ]);
+            return { limitedProducts, product };
+          },
+          hydrateFallbackElement: <Loading />,
+          element: <ProductDetails />,
         },
         {
           path: "my",
