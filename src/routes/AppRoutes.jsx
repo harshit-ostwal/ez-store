@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import {
   getAllProducts,
@@ -9,18 +10,23 @@ import {
 } from "@/api/products.js";
 import Loading from "@/components/common/Loading.jsx";
 import MainLayout from "@/layouts/MainLayout.jsx";
-import About from "@/pages/about.jsx";
-import App from "@/pages/app.jsx";
-import Contact from "@/pages/contact.jsx";
-import ProductDetails from "@/pages/product-details.jsx";
-import Products from "@/pages/products.jsx";
-import Profile from "@/pages/profile.jsx";
-import Whishlist from "@/pages/whislist.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
-import SignIn from "../pages/auth/sign-in.jsx";
-import SignUp from "../pages/auth/sign-up.jsx";
-import Category from "@/pages/category.jsx";
-import Categories from "@/pages/categories.jsx";
+
+const About = lazy(() => import("@/pages/about.jsx"));
+const App = lazy(() => import("@/pages/app.jsx"));
+const Contact = lazy(() => import("@/pages/contact.jsx"));
+const ProductDetails = lazy(() => import("@/pages/product-details.jsx"));
+const Products = lazy(() => import("@/pages/products.jsx"));
+const Profile = lazy(() => import("@/pages/profile.jsx"));
+const Whishlist = lazy(() => import("@/pages/whislist.jsx"));
+const SignIn = lazy(() => import("../pages/auth/sign-in.jsx"));
+const SignUp = lazy(() => import("../pages/auth/sign-up.jsx"));
+const Category = lazy(() => import("@/pages/category.jsx"));
+const Categories = lazy(() => import("@/pages/categories.jsx"));
+
+const LazyPage = ({ children }) => (
+  <Suspense fallback={<Loading />}>{children}</Suspense>
+);
 
 function AppRoutes() {
   const router = createBrowserRouter([
@@ -42,7 +48,11 @@ function AppRoutes() {
             return { categories, trending, newArrivals, bestSellers };
           },
           hydrateFallbackElement: <Loading />,
-          element: <App />,
+          element: (
+            <LazyPage>
+              <App />
+            </LazyPage>
+          ),
         },
         {
           path: "categories",
@@ -51,7 +61,11 @@ function AppRoutes() {
             return { categories };
           },
           hydrateFallbackElement: <Loading />,
-          element: <Categories />,
+          element: (
+            <LazyPage>
+              <Categories />
+            </LazyPage>
+          ),
         },
         {
           path: "products",
@@ -60,7 +74,11 @@ function AppRoutes() {
             return { allProducts };
           },
           hydrateFallbackElement: <Loading />,
-          element: <Products />,
+          element: (
+            <LazyPage>
+              <Products />
+            </LazyPage>
+          ),
         },
         {
           path: "products/category/:category",
@@ -69,7 +87,11 @@ function AppRoutes() {
             return { allProducts };
           },
           hydrateFallbackElement: <Loading />,
-          element: <Category />,
+          element: (
+            <LazyPage>
+              <Category />
+            </LazyPage>
+          ),
         },
         {
           path: "products/:id",
@@ -81,28 +103,48 @@ function AppRoutes() {
             return { limitedProducts, product };
           },
           hydrateFallbackElement: <Loading />,
-          element: <ProductDetails />,
+          element: (
+            <LazyPage>
+              <ProductDetails />
+            </LazyPage>
+          ),
         },
         {
           path: "my",
           children: [
             {
               path: "whishlist",
-              element: <Whishlist />,
+              element: (
+                <LazyPage>
+                  <Whishlist />
+                </LazyPage>
+              ),
             },
             {
               path: "profile",
-              element: <Profile />,
+              element: (
+                <LazyPage>
+                  <Profile />
+                </LazyPage>
+              ),
             },
           ],
         },
         {
           path: "about",
-          element: <About />,
+          element: (
+            <LazyPage>
+              <About />
+            </LazyPage>
+          ),
         },
         {
           path: "contact",
-          element: <Contact />,
+          element: (
+            <LazyPage>
+              <Contact />
+            </LazyPage>
+          ),
         },
         {
           path: "*",
@@ -117,11 +159,19 @@ function AppRoutes() {
       children: [
         {
           path: "sign-in",
-          element: <SignIn />,
+          element: (
+            <LazyPage>
+              <SignIn />
+            </LazyPage>
+          ),
         },
         {
           path: "sign-up",
-          element: <SignUp />,
+          element: (
+            <LazyPage>
+              <SignUp />
+            </LazyPage>
+          ),
         },
       ],
     },
