@@ -1,19 +1,19 @@
-import { useAuth } from "@/providers/AuthProvider";
 import React from "react";
 import { Navigate, Outlet } from "react-router";
+import { useAuth } from "@/providers/AuthProvider";
 
 function AuthLayout() {
-  const { loggedInUser } = useAuth();
+    const { loggedInUser } = useAuth();
 
-  if (loggedInUser) {
-    return <Navigate to="/" replace />;
-  }
+    if (loggedInUser) {
+        return <Navigate to="/" replace />;
+    }
 
-  return (
-    <div className="h-dvh w-11/12 max-w-lg mx-auto flex items-center">
-      <Outlet />
-    </div>
-  );
+    return (
+        <div className="h-dvh w-11/12 max-w-lg mx-auto flex items-center">
+            <Outlet />
+        </div>
+    );
 }
 
 export default AuthLayout;

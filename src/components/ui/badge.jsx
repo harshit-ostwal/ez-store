@@ -1,49 +1,48 @@
-import * as React from "react";
 import { cva } from "class-variance-authority";
 import { Slot } from "radix-ui";
+import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "group/badge inline-flex h-8 w-fit shrink-0 bg-white items-center justify-center gap-1 overflow-hidden rounded-3xl border border-transparent px-4 py-1 text-base font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-4!",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
-        secondary:
-          "bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
-        destructive:
-          "bg-destructive/10 text-destructive focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:focus-visible:ring-destructive/40 [a]:hover:bg-destructive/20",
-        outline:
-          "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
-        ghost:
-          "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
-        link: "text-primary underline-offset-4 hover:underline",
-        info:
-          "bg-blue-100 text-blue-700 focus-visible:ring-blue-300 dark:bg-blue-200 dark:text-blue-800 dark:focus-visible:ring-blue-800/30 [a]:hover:bg-blue-200",
-        success:
-          "bg-green-100 text-green-700 focus-visible:ring-green-300 dark:bg-green-200 dark:text-green-800 dark:focus-visible:ring-green-800/30 [a]:hover:bg-green-200",
-        warning:
-          "bg-orange-100 text-orange-700 focus-visible:ring-orange-300 dark:bg-orange-200 dark:text-orange-800 dark:focus-visible:ring-orange-800/30 [a]:hover:bg-orange-200",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  },
+    "group/badge inline-flex h-8 w-fit shrink-0 bg-white items-center justify-center gap-1 overflow-hidden rounded-3xl border border-transparent px-4 py-1 text-base font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-4!",
+    {
+        variants: {
+            variant: {
+                default:
+                    "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
+                secondary:
+                    "bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
+                destructive:
+                    "bg-destructive/10 text-destructive focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:focus-visible:ring-destructive/40 [a]:hover:bg-destructive/20",
+                outline:
+                    "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
+                ghost: "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
+                link: "text-primary underline-offset-4 hover:underline",
+                info: "bg-blue-100 text-blue-700 focus-visible:ring-blue-300 dark:bg-blue-200 dark:text-blue-800 dark:focus-visible:ring-blue-800/30 [a]:hover:bg-blue-200",
+                success:
+                    "bg-green-100 text-green-700 focus-visible:ring-green-300 dark:bg-green-200 dark:text-green-800 dark:focus-visible:ring-green-800/30 [a]:hover:bg-green-200",
+                warning:
+                    "bg-orange-100 text-orange-700 focus-visible:ring-orange-300 dark:bg-orange-200 dark:text-orange-800 dark:focus-visible:ring-orange-800/30 [a]:hover:bg-orange-200",
+            },
+        },
+        defaultVariants: {
+            variant: "default",
+        },
+    }
 );
 
 function Badge({ className, variant = "default", asChild = false, ...props }) {
-  const Comp = asChild ? Slot.Root : "span";
+    const Comp = asChild ? Slot.Root : "span";
 
-  return (
-    <Comp
-      data-slot="badge"
-      data-variant={variant}
-      className={cn(badgeVariants({ variant }), className)}
-      {...props}
-    />
-  );
+    return (
+        <Comp
+            data-slot="badge"
+            data-variant={variant}
+            className={cn(badgeVariants({ variant }), className)}
+            {...props}
+        />
+    );
 }
 
 export { Badge, badgeVariants };
