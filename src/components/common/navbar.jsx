@@ -152,7 +152,7 @@ function Navbar() {
               </Heading>
             </Button>
           </SheetTrigger>
-          <SheetContent showCloseButton className="flex flex-col gap-4 min-w-full sm:max-w-md">
+          <SheetContent showCloseButton className="flex flex-col gap-4 max-w-md">
             <SheetHeader>
               <SheetTitle asChild>
                 <Heading
