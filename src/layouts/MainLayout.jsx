@@ -9,7 +9,7 @@ function MainLayout() {
     const location = useLocation();
 
     useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({ top: 0, behavior: "instant" });
     }, [location.pathname]);
 
     if (!loggedInUser) {
