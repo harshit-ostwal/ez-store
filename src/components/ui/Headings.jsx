@@ -13,6 +13,7 @@ const headingVariants = cva("text-pretty", {
       p: "text-muted-foreground max-w-2xl text-base md:text-lg",
       ul: "list-inside list-disc space-y-4 text-[16px] font-medium",
       li: "text-[16px]",
+      small: "text-sm",
     },
   },
   defaultVariants: {
@@ -24,7 +25,7 @@ export const Heading = ({ className, size = "h1", id, children, ...props }) => {
   const Tag = size === "p" ? "p" : size;
   return (
     <Tag
-      className={cn(headingVariants({ size }), "leading-6", className)}
+      className={cn(headingVariants({ size }), "leading-snug", className)}
       id={id}
       {...props}
     >

@@ -6,6 +6,7 @@ import {
 import { createContext, useContext, useState } from "react";
 import { v7 as uuidV7 } from "uuid";
 import bcrypt from "bcryptjs";
+import { toast } from "sonner";
 
 const AuthContext = createContext();
 
@@ -26,7 +27,8 @@ const AuthProvider = ({ children }) => {
     const existingUser = findByEmail(data.email);
 
     if (existingUser) {
-      throw new Error("User already exists");
+      toast.error("User with this email already exists");
+      return;
     }
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -45,26 +47,45 @@ const AuthProvider = ({ children }) => {
 
     setUsers(newUser);
     setLocalStorageItem(LocalStorageKeys.USERS, newUser);
+    toast.success("Account created successfully!");
+    return true;
   };
 
-  const signIn = (data) => {
+  const signIn = async (data) => {
     const existingUser = findByEmail(data.email);
 
     if (!existingUser) {
-      throw new Error("User not found");
+      toast.error("User not found");
+      return;
     }
 
-    if (existingUser.password !== data.password) {
-      throw new Error("Invalid password");
+    const comparePassword = await bcrypt.compare(
+      data.password,
+      existingUser.password,
+    );
+
+    if (!comparePassword) {
+      toast.error("Invalid credentials, Please try again later.");
+      return;
     }
 
     setLoggedInUser(existingUser);
     setLocalStorageItem(LocalStorageKeys.LOGGED_IN_USER, existingUser);
+    toast.success("Logged in successfully!");
+    return true;
+  };
+
+  const signOut = () => {
+    setLoggedInUser(null);
+    setLocalStorageItem(LocalStorageKeys.LOGGED_IN_USER, null);
+    toast.success("Signed out successfully!");
   };
 
   const value = {
+    users,
     signUp,
     signIn,
+    signOut,
     loggedInUser,
   };
 
