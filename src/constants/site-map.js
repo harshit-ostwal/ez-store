@@ -7,7 +7,7 @@ export const Sitemap = [
         name: "Products",
         path: "/products",
     },
-      {
+    {
         name: "Categories",
         path: "/categories",
     },
